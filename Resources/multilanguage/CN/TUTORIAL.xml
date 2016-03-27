@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"/>  
+<plist version="1.0">  
+     <dict>  
+         <key>GAME TUTORIAL</key>  
+         <string>游戏教学</string>  
+         <key>0</key>  
+         <string>从“1”开始递增选择数字，右划将其相加得到“和”</string>  
+         <key>1</key>  
+         <string>选择任意个数的“1”，右划将其变成“2”</string>
+         <key>2</key>  
+         <string>当拥有“减”的机会时，下划可以使所有的数字减一</string>
+         <key>3</key>  
+         <string>左划可以取消选择</string>  
+         <key>END TUTORIAL</key>  
+         <string>结束教学</string>  
+     </dict>  
+</plist>  
+

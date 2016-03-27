@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"/>  
+<plist version="1.0">  
+     <dict>  
+         <key>1</key>  
+         <string>Select numbers from "1" in ascending order, and swipe right to get their SUM; select any amount of "1"s and swipe right to make them "2"s; swipe down to perform a REDUCE when you have chances. Try and make your ascending sequence as long as possible.</string>  
+         <key>2</key>  
+         <string>Swipe UP -- Show menu</string>
+         <key>3</key>  
+         <string>Swipe DOWN -- REDUCE</string>
+         <key>4</key>  
+         <string>Swipe LEFT -- Clear selection</string>
+         <key>5</key>  
+         <string>Swipe RIGHT -- Finish selection</string>
+         <key>6</key>  
+         <string>GOOD LUCK!</string> 
+         <key>BACK</key>  
+         <string>BACK</string> 
+     </dict>  
+</plist>  
+

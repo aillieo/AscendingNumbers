@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"/>  
+<plist version="1.0">  
+     <dict>  
+         <key>1</key>  
+         <string>从“1”开始递增选择数字，右划将其相加得到“和”；选择任意个数的“1”，右划将其变成“2”；当拥有“减”的机会时，下划可以使所有的数字减一。游戏的目标是得到尽可能长的递增数列</string>  
+         <key>2</key>  
+         <string>向上划 -- 显示菜单</string>
+         <key>3</key>  
+         <string>向下划 -- 使用“减”</string>  
+         <key>4</key>  
+         <string>向左划 -- 取消选择</string>  
+         <key>5</key>  
+         <string>向右划 -- 完成选择</string>  
+         <key>6</key>  
+         <string>加油喔！</string>
+         <key>BACK</key>  
+         <string>返回</string> 
+     </dict>  
+</plist>  
+

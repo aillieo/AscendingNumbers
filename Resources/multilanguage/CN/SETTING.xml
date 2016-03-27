@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"/>  
+<plist version="1.0">  
+     <dict>  
+         <key>RESUME</key>  
+         <string>回到游戏</string>  
+         <key>RESTART</key>  
+         <string>重新开始</string>  
+         <key>SOUND ON</key>  
+         <string>音效 开启</string>  
+         <key>SOUND OFF</key>  
+         <string>音效 关闭</string>  
+         <key>HELP</key>  
+         <string>游戏帮助</string>  
+         <key>TUTORIAL</key>  
+         <string>游戏教学</string>  
+     </dict>  
+</plist>  
+

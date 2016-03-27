@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"/>  
+<plist version="1.0">  
+     <dict>  
+         <key>RESUME</key>  
+         <string>RESUME</string>  
+         <key>RESTART</key>  
+         <string>RESTART</string>  
+         <key>SOUND ON</key>  
+         <string>SOUND ON</string>  
+         <key>SOUND OFF</key>  
+         <string>SOUND OFF</string>  
+         <key>HELP</key>  
+         <string>HELP</string>  
+         <key>TUTORIAL</key>  
+         <string>TUTORIAL</string>  
+     </dict>  
+</plist>  
+

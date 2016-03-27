@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"/>  
+<plist version="1.0">  
+     <dict>  
+         <key>MAX SUM EVER</key>  
+         <string>“和”的纪录</string>  
+         <key>REDUCE CHANCES</key>  
+         <string>“减”的次数</string>  
+     </dict>  
+</plist>  
+

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"/>  
+<plist version="1.0">  
+     <dict>
+         <key>GAME TUTORIAL</key>  
+         <string>GAME TUTORIAL</string>  
+         <key>0</key>  
+         <string>Select numbers from "1" in ascending order, and swipe right to get their SUM;</string>  
+         <key>1</key>  
+         <string>Select any amount of "1"s and swipe right to make them "2"s;</string>
+         <key>2</key>  
+         <string>Swipe down to perform a REDUCE when you have chances;</string>
+         <key>3</key>  
+         <string>Swipe left to clear your selection</string>  
+         <key>END TUTORIAL</key>  
+         <string>END TUTORIAL</string>  
+     </dict>  
+</plist>  
+
