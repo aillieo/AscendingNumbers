@@ -1,4 +1,4 @@
-#include "BlocksLayer.h"
+ï»¿#include "BlocksLayer.h"
 #include "GameScene.h"
 #include "Cloud.h"
 #include "MultiLanguagePathGetter.h"
@@ -34,17 +34,17 @@ bool BlocksLayer::init()
 	hasGameBegan = false;
 	isTouchEventValid = true;
 
-	//´´½¨·½¸ñÕóµÄ±³¾° 430x430 Á½¸ö¸ñ×Ó¿éÖ®¼ä¼äÏ¶5
+	//åˆ›å»ºæ–¹æ ¼é˜µçš„èƒŒæ™¯ 430x430 ä¸¤ä¸ªæ ¼å­å—ä¹‹é—´é—´éš™5
 	auto holder = Sprite::create("BLANK.png");
 	holder->setTextureRect(Rect(0,0,640,640));
 	holder-> setPosition(origin.x + visibleSize.width / 2 , origin.y + holder->getContentSize().height/2 );
 	holder->setOpacity(0);
 	this->addChild(holder,0);
 
-	//»ñÈ¡basePoint
+	//è·å–basePoint
 	basePoint = Point(holder->getPositionX() - holder->getContentSize().width /2 ,holder->getPositionY() - holder->getContentSize().height /2 );
 
-	//¸ù¾İµ±Ç°Ê±¼ä ²úÉúËæ»úÊıÖÖ×Ó
+	//æ ¹æ®å½“å‰æ—¶é—´ äº§ç”Ÿéšæœºæ•°ç§å­
 	struct timeval nowTimeval;
 	gettimeofday(&nowTimeval, NULL);
 	struct tm * tm;
@@ -59,11 +59,11 @@ bool BlocksLayer::init()
 	//log("%d", nSeed);
 	srand(nSeed); 
 
-	//³ıÁË2ÒÔÍâµÄÊıÖĞ ¡°3¡±»ò ¡°1¡±µÄ¸öÊı
+	//é™¤äº†2ä»¥å¤–çš„æ•°ä¸­ â€œ3â€æˆ– â€œ1â€çš„ä¸ªæ•°
 	int rest1 = (matrix_height*matrix_width)/4;
 	int rest3 = (matrix_height*matrix_width)/4;
 
-	//³õÊ¼»¯·½Õó 
+	//åˆå§‹åŒ–æ–¹é˜µ 
 	blocks = Vector<Block*>(matrix_height * matrix_width); 
 	for (int row = 0; row < matrix_height; row++) 
 	{
@@ -78,7 +78,7 @@ bool BlocksLayer::init()
 			else
 			{
 				
-				//Ëæ»úÉú³É1»ò3 ²¢È·±£1ºÍ3µÄ¸öÊı
+				//éšæœºç”Ÿæˆ1æˆ–3 å¹¶ç¡®ä¿1å’Œ3çš„ä¸ªæ•°
 				if(CCRANDOM_0_1() > 0.5f )
 				{
 				
@@ -124,7 +124,7 @@ bool BlocksLayer::init()
 	
 
 	
-	//Æ®Á½¶äÔÆ
+	//é£˜ä¸¤æœµäº‘
 	auto cloud1 = Cloud::create();
 	cloud1->setPositionX(origin.x);
 	cloud1->setHeight(origin.y + 0.33 *holder->getContentSize().height);
@@ -136,7 +136,7 @@ bool BlocksLayer::init()
 
 
 
-	//¶Ô´¥ÃşÊÂ¼şµÄ¼àÌı
+	//å¯¹è§¦æ‘¸äº‹ä»¶çš„ç›‘å¬
 	auto touchListener=EventListenerTouchOneByOne::create();
 	touchListener->onTouchBegan=CC_CALLBACK_2(BlocksLayer::onTouchBegan,this);
 	touchListener->onTouchMoved=CC_CALLBACK_2(BlocksLayer::onTouchMoved,this);
@@ -144,7 +144,7 @@ bool BlocksLayer::init()
 	touchListener->onTouchCancelled=CC_CALLBACK_2(BlocksLayer::onTouchCancelled,this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener,this);
 
-	//¶ÔÒôĞ§ÉèÖÃµÄ¼àÌı
+	//å¯¹éŸ³æ•ˆè®¾ç½®çš„ç›‘å¬
 	auto listenerSS = EventListenerCustom ::create("SET_SOUND",CC_CALLBACK_1(BlocksLayer::setSound, this));
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listenerSS,this);
 
@@ -224,7 +224,7 @@ void BlocksLayer::onTouchEnded( Touch *touch, Event *unused )
 	}
 
 
-	//Èç¹ûÃ»ÓĞ°´ÔÚ¸ñ×ÓÉÏ
+	//å¦‚æœæ²¡æœ‰æŒ‰åœ¨æ ¼å­ä¸Š
 	auto point = touch->getLocation();
 	Block* tmp = getBlockContainingPoint(point);
 	if (nullptr == tmp)
@@ -233,7 +233,7 @@ void BlocksLayer::onTouchEnded( Touch *touch, Event *unused )
 		return;
 	}
 
-	//Èç¹ûËÉ¿ªµÄ¸ñ×ÓºÍ°´ÏÂµÄ¸ñ×Ó²»Í¬
+	//å¦‚æœæ¾å¼€çš„æ ¼å­å’ŒæŒ‰ä¸‹çš„æ ¼å­ä¸åŒ
 	if (tmp != touchBeganBlock)
 	{
 		checkSwipeAction(point);
@@ -243,7 +243,7 @@ void BlocksLayer::onTouchEnded( Touch *touch, Event *unused )
 
 
 
-	//Èç¹û°´ÔÚÒÑ°´µÄ¸ñ×ÓÉÏ
+	//å¦‚æœæŒ‰åœ¨å·²æŒ‰çš„æ ¼å­ä¸Š
 	if (tmp->isPressed)
 	{
 		if((tmp==blocksPressed.back())||(!selectingAscending))
@@ -261,7 +261,7 @@ void BlocksLayer::onTouchEnded( Touch *touch, Event *unused )
 
 
 
-	//Ñ¡µÚÒ»¸öµÄÊ±ºò Ö»ÄÜÊÇ1
+	//é€‰ç¬¬ä¸€ä¸ªçš„æ—¶å€™ åªèƒ½æ˜¯1
 	if ((blocksPressed.empty())&&(tmp->getBlockValue()==1))
 	{
 		blocksPressed.pushBack(tmp);
@@ -272,7 +272,7 @@ void BlocksLayer::onTouchEnded( Touch *touch, Event *unused )
 
 
 
-	//Ñ¡µÚ¶ş¸öµÄÊ±ºò ¿ÉÒÔÊÇ1»ò2
+	//é€‰ç¬¬äºŒä¸ªçš„æ—¶å€™ å¯ä»¥æ˜¯1æˆ–2
 	if (blocksPressed.size()==1)
 	{
 		if (tmp->getBlockValue()==1)
@@ -296,7 +296,7 @@ void BlocksLayer::onTouchEnded( Touch *touch, Event *unused )
 	}
 
 
-	//´ÓµÚÈı¸ö¿ªÊ¼
+	//ä»ç¬¬ä¸‰ä¸ªå¼€å§‹
 	if (blocksPressed.size()>1)
 	{
 
@@ -380,7 +380,7 @@ void BlocksLayer::superReduce()
 void BlocksLayer::finishSelection()
 {
 
-	//ÎŞÑ¡ÔñÊ±
+	//æ— é€‰æ‹©æ—¶
 	if (blocksPressed.size()==0)
 	{
 
@@ -389,7 +389,7 @@ void BlocksLayer::finishSelection()
 		return;
 	}
 
-	//È«Ñ¡1Ê±
+	//å…¨é€‰1æ—¶
 	if ((blocksPressed.size()==1)||(!selectingAscending))
 	{
 		for (Block* blk : blocksPressed)
@@ -402,7 +402,7 @@ void BlocksLayer::finishSelection()
 	}
 
 
-	//µİÔöÑ¡Ê±
+	//é€’å¢é€‰æ—¶
 	if ((blocksPressed.size()>1)&&(selectingAscending))
 	{
 
@@ -417,7 +417,7 @@ void BlocksLayer::finishSelection()
 		
 		for (int i = 0; i<blocksPressed.size()-1;i++ )
 		{
-			//±»ÏûÈ¥µÄ·½¿é½«Ëæ»ú±ä³É1
+			//è¢«æ¶ˆå»çš„æ–¹å—å°†éšæœºå˜æˆ1
 			blocksPressed.at(i)->setBlockValue(1);
 			blocksPressed.at(i)->onSelectionFinished(false);
 
@@ -426,7 +426,7 @@ void BlocksLayer::finishSelection()
 		playSound("AscendingFinish.mp3");
 
 		
-		//´¥·¢FIRST_STEP ½«°´Å¥ºÍ·ÖÊıÏÔÊ¾³öÀ´
+		//è§¦å‘FIRST_STEP å°†æŒ‰é’®å’Œåˆ†æ•°æ˜¾ç¤ºå‡ºæ¥
 		if (!hasGameBegan)
 		{
 			//CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("firstblood.mp3",false);
@@ -461,13 +461,13 @@ void BlocksLayer::clearSelection()
 void BlocksLayer::checkSwipeAction( cocos2d::Point point )
 {
 
-	//»¬¶¯¾àÀë¶Ì ²»Æğ×÷ÓÃ
+	//æ»‘åŠ¨è·ç¦»çŸ­ ä¸èµ·ä½œç”¨
 	if ((abs(point.x - touchBeganPoint.x)<128)&&(abs(point.y - touchBeganPoint.y)<128))
 	{
 		return;
 	}
 
-	//Èç¹û°´ÏÂºÍ·Å¿ªµÄ¾àÀë³¬¹ıÒ»¶¨ÊıÖµ
+	//å¦‚æœæŒ‰ä¸‹å’Œæ”¾å¼€çš„è·ç¦»è¶…è¿‡ä¸€å®šæ•°å€¼
 	if (abs(point.x - touchBeganPoint.x)>abs(point.y - touchBeganPoint.y))
 	{
 
@@ -515,7 +515,7 @@ void BlocksLayer::firstStep()
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	//¸ù¾İÏµÍ³ÓïÑÔÉú³ÉÒ»¸öÎÄ¼şÂ·¾¶×Ö·û´®
+	//æ ¹æ®ç³»ç»Ÿè¯­è¨€ç”Ÿæˆä¸€ä¸ªæ–‡ä»¶è·¯å¾„å­—ç¬¦ä¸²
 	std::string filename = MultiLanguagePathGetter::getPath()+"/UI.xml";
 	auto dictionary = Dictionary::createWithContentsOfFile(filename.c_str());
 
@@ -525,7 +525,7 @@ void BlocksLayer::firstStep()
 
 	filename = MultiLanguagePathGetter::getPath() + "/font.fnt";
 
-	//´´½¨MaxEver
+	//åˆ›å»ºMaxEver
 	auto label = LabelBMFont::create(str_max.c_str(), filename.c_str());
 	label->setScale(5.0f/6.0f);
 	label->setPosition(Vec2(origin.x + visibleSize.width *0.38 ,

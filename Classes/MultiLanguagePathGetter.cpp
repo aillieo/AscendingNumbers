@@ -1,4 +1,4 @@
-#include "MultiLanguagePathGetter.h"
+﻿#include "MultiLanguagePathGetter.h"
 
 USING_NS_CC;
 

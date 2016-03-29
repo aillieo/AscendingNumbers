@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "cocos2d.h"
 
@@ -6,63 +6,63 @@ class Block : public cocos2d::Sprite
 {
 public:
 
-	//³õÊ¼»¯
+	//åˆå§‹åŒ–
     virtual bool init();  
     
-	//createº¯Êı
+	//createå‡½æ•°
 	CREATE_FUNC(Block);
 
-	//»ñÈ¡Í¼Æ¬¿í¶È ¸ß¶ÈºÍ¿í¶ÈÏàµÈ
+	//è·å–å›¾ç‰‡å®½åº¦ é«˜åº¦å’Œå®½åº¦ç›¸ç­‰
 	static float getContentWidth();
 
-	//ĞĞºÅ ÁĞºÅ µÄ¶ÁĞ´
+	//è¡Œå· åˆ—å· çš„è¯»å†™
 	void setRow(int row);
 	void setCol(int col);
 	int getRow();
 	int getCol();
 
-	//·½¿éÉÏµÄÊı×ÖÖµ ¶ÁĞ´
+	//æ–¹å—ä¸Šçš„æ•°å­—å€¼ è¯»å†™
 	void setBlockValue(unsigned blockValue);
 	unsigned getBlockValue();
 
-	//·½¿éÊÇ·ñ¿É°´
+	//æ–¹å—æ˜¯å¦å¯æŒ‰
 	bool isPressable();
-	//ÉèÖÃ·½¿éÊÇ·ñ¿É°´
+	//è®¾ç½®æ–¹å—æ˜¯å¦å¯æŒ‰
 	void setPressability(bool bIsPressable);
 
-	//·½¿éÊÇ·ñÒÑ±»°´ÏÂ
+	//æ–¹å—æ˜¯å¦å·²è¢«æŒ‰ä¸‹
 	bool isPressed;
 
-	//µ±±»°´ÏÂÊ±
+	//å½“è¢«æŒ‰ä¸‹æ—¶
 	void onPressed();
 
-	//µ±±»È¡Ïû°´ÏÂÊ±
+	//å½“è¢«å–æ¶ˆæŒ‰ä¸‹æ—¶
 	void onPressCancelled();
 
-	//µ±Ñ¡ÔñÍê³ÉÊ±±ä³É·Ç°´ÏÂµÄ×´Ì¬
+	//å½“é€‰æ‹©å®Œæˆæ—¶å˜æˆéæŒ‰ä¸‹çš„çŠ¶æ€
 	void onSelectionFinished(bool isLargestNumber);
 
-	//Ê¹ÓÃreduceÊ±
+	//ä½¿ç”¨reduceæ—¶
 	void onReduce();
 
 
 private:
 
-	//ĞĞºÅ ÁĞºÅ
+	//è¡Œå· åˆ—å·
 	int _row;
 	int _col;
 
 
-	//·½¿éÉÏµÄÊı×ÖÖµ
+	//æ–¹å—ä¸Šçš„æ•°å­—å€¼
 	unsigned _blockValue;
 
-	//·½¿éÉÏÊı×ÖµÄ±êÇ©
+	//æ–¹å—ä¸Šæ•°å­—çš„æ ‡ç­¾
 	cocos2d::LabelTTF* label;
 
-	//ÊÇ·ñ¿É°´
+	//æ˜¯å¦å¯æŒ‰
 	bool _pressable;
 
-	//ÉèÖÃ¸ñ×ÓµÄÑÕÉ«
+	//è®¾ç½®æ ¼å­çš„é¢œè‰²
 	void setBlockColor(unsigned blockValue);
 };
 

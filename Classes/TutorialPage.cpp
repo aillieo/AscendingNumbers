@@ -1,4 +1,4 @@
-#include "TutorialPage.h"
+ï»¿#include "TutorialPage.h"
 #include "MultiLanguagePathGetter.h"
 
 
@@ -96,7 +96,7 @@ bool TutorialPage::init( unsigned index )
 
 	/////////////////////////////////////////////////////////
 	//                        p1_rf                        //
-	//                        È«Ñ¡1                        //
+	//                        å…¨é€‰1                        //
 	/////////////////////////////////////////////////////////
 
 	auto p1_action1 = CallFunc::create([&](){finger->setPosition(blocks.at(5)->getPosition());});
@@ -130,7 +130,7 @@ bool TutorialPage::init( unsigned index )
 
 	/////////////////////////////////////////////////////////
 	//                        p2_rf                        //
-	//                       µİÔöÑ¡Ôñ                      //
+	//                       é€’å¢é€‰æ‹©                      //
 	/////////////////////////////////////////////////////////
 
 	auto p2_action1 = CallFunc::create([&](){finger->setPosition(blocks.at(1)->getPosition());});
@@ -242,7 +242,7 @@ bool TutorialPage::init( unsigned index )
 
 
 
-	//³õÊ¼»¯ ¾ßÌåµÄ²»Í¬µÄ¶¯×÷
+	//åˆå§‹åŒ– å…·ä½“çš„ä¸åŒçš„åŠ¨ä½œ
 	switch(index)
 	{
 	case 0:

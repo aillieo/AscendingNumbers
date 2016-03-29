@@ -1,4 +1,4 @@
-#include "GameSettingLayer.h"
+ï»¿#include "GameSettingLayer.h"
 #include "MultiLanguagePathGetter.h"
 
 USING_NS_CC;
@@ -36,7 +36,7 @@ bool GameSettingLayer::init()
 	this->addChild(label, 1);
 	*/
 
-	//¸ù¾İÏµÍ³ÓïÑÔÉú³ÉÒ»¸öÎÄ¼şÂ·¾¶×Ö·û´®
+	//æ ¹æ®ç³»ç»Ÿè¯­è¨€ç”Ÿæˆä¸€ä¸ªæ–‡ä»¶è·¯å¾„å­—ç¬¦ä¸²
 	std::string filename = MultiLanguagePathGetter::getPath() + "/SETTING.xml";
 	auto dictionary = Dictionary::createWithContentsOfFile(filename.c_str());
 

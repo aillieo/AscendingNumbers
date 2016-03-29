@@ -1,4 +1,4 @@
-#include "AppDelegate.h"
+ï»¿#include "AppDelegate.h"
 #include "GameScene.h"
 
 USING_NS_CC;
@@ -21,14 +21,14 @@ bool AppDelegate::applicationDidFinishLaunching() {
     }
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-	//ÒÔºìÃ×ÊÖ»úµÄÏÔÊ¾·Ö±æÂÊÎªÉè¼ÆÄ¿±ê1280x720
+	//ä»¥çº¢ç±³æ‰‹æœºçš„æ˜¾ç¤ºåˆ†è¾¨çŽ‡ä¸ºè®¾è®¡ç›®æ ‡1280x720
 	glview->setFrameSize(720,1280);
 #endif
 	//glview->setFrameSize(640,960);
 	//glview->setFrameSize(1080,1920);
-	//½«Ô­ÓÐµÄ³ß´çÎª640 960µÄÍ¼Æ¬À­ÉìÖÁÏÔÊ¾³ß´ç´óÐ¡
+	//å°†åŽŸæœ‰çš„å°ºå¯¸ä¸º640 960çš„å›¾ç‰‡æ‹‰ä¼¸è‡³æ˜¾ç¤ºå°ºå¯¸å¤§å°
 	glview->setDesignResolutionSize(640,960, ResolutionPolicy::EXACT_FIT);
-	//ÔÚwindowsÏÂÔËÐÐÊ±°´0.5±ÈÀýÏÔÊ¾ ÒÔÔ¤ÀÀÕû¸ö½çÃæ
+	//åœ¨windowsä¸‹è¿è¡Œæ—¶æŒ‰0.5æ¯”ä¾‹æ˜¾ç¤º ä»¥é¢„è§ˆæ•´ä¸ªç•Œé¢
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 	glview->setFrameZoomFactor(0.5);
 #endif

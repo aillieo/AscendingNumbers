@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "cocos2d.h"
 #include "Block.h"
@@ -13,72 +13,72 @@ public:
     // implement the "static create()" method manually
     CREATE_FUNC(BlocksLayer);
 
-	//¹ØÓÚ´¥ÃşÊÂ¼ş
+	//å…³äºè§¦æ‘¸äº‹ä»¶
 	virtual bool onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *unused);
 	virtual void onTouchMoved(cocos2d::Touch *touch, cocos2d::Event *unused);
 	virtual void onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *unused);
 	virtual void onTouchCancelled(cocos2d::Touch *touch, cocos2d::Event *unused);
 
-	//´¥ÃşÊÂ¼şÓĞĞ§
+	//è§¦æ‘¸äº‹ä»¶æœ‰æ•ˆ
 	bool isTouchEventValid;
 
-	//Ê¹ÓÃreduce°´Å¥
+	//ä½¿ç”¨reduceæŒ‰é’®
 	void superReduce();
 
-	//Ê¹ÓÃfinish°´Å¥
+	//ä½¿ç”¨finishæŒ‰é’®
 	void finishSelection();
 
-	//Ê¹ÓÃclear°´Å¥
+	//ä½¿ç”¨clearæŒ‰é’®
 	void clearSelection();
 
-	//µ±Ç°²½²Ù×÷²úÉúµÄĞÂsum
+	//å½“å‰æ­¥æ“ä½œäº§ç”Ÿçš„æ–°sum
 	int currentSum;
 
-	//¹ØÓÚÒôĞ§µÄÉèÖÃ
+	//å…³äºéŸ³æ•ˆçš„è®¾ç½®
 	void setSound(cocos2d::EventCustom* event);
 
 
 
 private:
 
-	//ÅĞ¶ÏÒôĞ§ÊÇ·ñ¿ªÆô
+	//åˆ¤æ–­éŸ³æ•ˆæ˜¯å¦å¼€å¯
 	bool isSoundEnabled;
 
-	//¿ªÊ¼°´ÏÂÊ±Ñ¡ÔñµÄblock Ö»ÓĞµ±°´ÏÂºÍËÉ¿ªµÄblockÏàÍ¬Ê± ²Å»á¶Ôblock½øĞĞ²Ù×÷
+	//å¼€å§‹æŒ‰ä¸‹æ—¶é€‰æ‹©çš„block åªæœ‰å½“æŒ‰ä¸‹å’Œæ¾å¼€çš„blockç›¸åŒæ—¶ æ‰ä¼šå¯¹blockè¿›è¡Œæ“ä½œ
 	Block* touchBeganBlock;
 
-	//¿ªÊ¼°´ÏÂÊ±µÄµã ÓÃÀ´ÅĞ¶Ï»¬¶¯·½Ïò
+	//å¼€å§‹æŒ‰ä¸‹æ—¶çš„ç‚¹ ç”¨æ¥åˆ¤æ–­æ»‘åŠ¨æ–¹å‘
 	cocos2d::Point touchBeganPoint; 
 
 
-	//Ñ¡ÔñµÄÊıÊÇµİÔöµÄ
+	//é€‰æ‹©çš„æ•°æ˜¯é€’å¢çš„
 	bool selectingAscending;
 
-	//ÓÎÏ·ÊÇ·ñÒÑ¾­¿ªÊ¼
+	//æ¸¸æˆæ˜¯å¦å·²ç»å¼€å§‹
 	bool hasGameBegan;
 
-	//´´½¨·½¿é ¸ù¾İĞĞºÅ ÁĞºÅ ·½¸ñµÄÊı×ÖÖµ
+	//åˆ›å»ºæ–¹å— æ ¹æ®è¡Œå· åˆ—å· æ–¹æ ¼çš„æ•°å­—å€¼
 	void createBlock(int row, int col, unsigned blockValue);
 
-	//Î»ÓÚÖ¸¶¨ĞĞÁĞÎ»ÖÃµÄblockµÄÖĞĞÄµã
+	//ä½äºæŒ‡å®šè¡Œåˆ—ä½ç½®çš„blockçš„ä¸­å¿ƒç‚¹
 	cocos2d::Point getCenterPoint(int row, int col);
 
-	//°üº¬¸ÃµãµÄblock¶ÔÏó
+	//åŒ…å«è¯¥ç‚¹çš„blockå¯¹è±¡
 	Block* getBlockContainingPoint(cocos2d::Point point);
 
 
-	//²¥·ÅÒôĞ§
+	//æ’­æ”¾éŸ³æ•ˆ
 	void playSound(const std::string filename);
 
 
 
-	//×óÏÂ½ÇµÄ»ù×¼µã holderµÄ×óÏÂ½Ç ¾àÀë×óÏÂ½ÇµÄ·½¸ñÓĞ¼äÏ¶
+	//å·¦ä¸‹è§’çš„åŸºå‡†ç‚¹ holderçš„å·¦ä¸‹è§’ è·ç¦»å·¦ä¸‹è§’çš„æ–¹æ ¼æœ‰é—´éš™
 	cocos2d::Point basePoint;
 
-	//´æ´¢¸ñ×ÓÕóÖĞËùÓĞµÄblocks
+	//å­˜å‚¨æ ¼å­é˜µä¸­æ‰€æœ‰çš„blocks
 	cocos2d::Vector<Block*> blocks; 
 
-	//´æ´¢Ñ¡ÖĞµÄblocks
+	//å­˜å‚¨é€‰ä¸­çš„blocks
 	cocos2d::Vector<Block*> blocksPressed; 
 
 
@@ -86,11 +86,11 @@ private:
 
 
 
-	//Ôø¾­³öÏÖ¹ıµÄ×î´óÊıÖµ
+	//æ›¾ç»å‡ºç°è¿‡çš„æœ€å¤§æ•°å€¼
 	int _maxNumberEver;
 	cocos2d::LabelTTF* _labelMaxNumberEver;
 
-	//µ±Ç°Ê£ÓàµÄ¡°¼õ¡±µÄ´ÎÊı
+	//å½“å‰å‰©ä½™çš„â€œå‡â€çš„æ¬¡æ•°
 	int _reduceChancesLeft;
 	cocos2d::LabelTTF* _labelReduceChancesLeft;
 
@@ -98,10 +98,10 @@ private:
 
 	void updateSum(int newSum);
 
-	//ÉèÖÃÔø¾­³öÏÖ¹ıµÄ×î´óÖµ
+	//è®¾ç½®æ›¾ç»å‡ºç°è¿‡çš„æœ€å¤§å€¼
 	void setNewRecord(int newRecord);
 
-	//ÉèÖÃµ±Ç°Ê£ÓàµÄ¡°¼õµÄ»ú»áÊı¡±
+	//è®¾ç½®å½“å‰å‰©ä½™çš„â€œå‡çš„æœºä¼šæ•°â€
 	void setReduceChancesLeft(int reduceChancesLeft);
 
 

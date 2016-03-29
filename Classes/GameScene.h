@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "cocos2d.h"
 
@@ -35,7 +35,7 @@ private:
 
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	//ÏìÓ¦°´¼ü
+	//å“åº”æŒ‰é”®
 	void onKeyReleased(cocos2d::EventKeyboard::KeyCode keycode, cocos2d::Event* event);
 
 	void itemYESCallback(cocos2d::Ref* pSender);

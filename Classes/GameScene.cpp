@@ -1,4 +1,4 @@
-#include "GameScene.h"
+ï»¿#include "GameScene.h"
 #include "BlocksLayer.h"
 #include "GameSettingLayer.h"
 #include "GameOverLayer.h"
@@ -45,7 +45,7 @@ bool GameScene::init()
     /////////////////////////////
 
 	/*
-	//ÉèÖÃ²Ëµ¥°´Å¥
+	//è®¾ç½®èœå•æŒ‰é’®
     settingItem = MenuItemImage::create(
                                            "CloseNormal.png",
                                            "CloseSelected.png",
@@ -56,7 +56,7 @@ bool GameScene::init()
 
 	settingItem->setVisible(false);
 
-	// ¡°¼õ¡±²Ëµ¥°´Å¥
+	// â€œå‡â€èœå•æŒ‰é’®
 	reduceItem = MenuItemImage::create(
 		"ButtonNormal_1.png",
 		"ButtonSelected.png",
@@ -67,7 +67,7 @@ bool GameScene::init()
 
 	reduceItem->setVisible(false);
 
-	// finish°´Å¥
+	// finishæŒ‰é’®
 	finishItem = MenuItemImage::create(
 		"ButtonNormal.png",
 		"ButtonSelected.png",
@@ -78,7 +78,7 @@ bool GameScene::init()
 
 	finishItem->setVisible(false);
 
-	// clear°´Å¥
+	// clearæŒ‰é’®
 	clearItem = MenuItemImage::create(
 		"ButtonNormal_2.png",
 		"ButtonSelected.png",
@@ -97,7 +97,7 @@ bool GameScene::init()
     this->addChild(menu, 1);
 	*/
 
-	//´´½¨±³¾°
+	//åˆ›å»ºèƒŒæ™¯
 	auto background = Sprite::create("BLANK.png");
 	background->setTextureRect(Rect(0,0,visibleSize.width,visibleSize.height));
 	background->setColor(ccc3(60,125,255));
@@ -106,37 +106,37 @@ bool GameScene::init()
 
 
 
-	//¶ÔskipµÄ¼àÌý
+	//å¯¹skipçš„ç›‘å¬
 	auto listenerSKT = EventListenerCustom ::create("SKIP_TUTORIAL",CC_CALLBACK_1(GameScene::skipTutorial, this));
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listenerSKT,this);
 
-	//¶ÔshowTutorialµÄ¼àÌý
+	//å¯¹showTutorialçš„ç›‘å¬
 	auto listenerST = EventListenerCustom ::create("SHOW_TUTORIAL",CC_CALLBACK_1(GameScene::showTutorial, this));
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listenerST,this);
 
-	//¶ÔshowSettingµÄ¼àÌý
+	//å¯¹showSettingçš„ç›‘å¬
 	auto listenerSS = EventListenerCustom ::create("SHOW_SETTING",CC_CALLBACK_1(GameScene::showSetting, this));
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listenerSS,this);
 
-	//¶ÔcloseSettingµÄ¼àÌý
+	//å¯¹closeSettingçš„ç›‘å¬
 	auto listenerCS = EventListenerCustom ::create("RESUME_GAME",CC_CALLBACK_1(GameScene::closeSetting, this));
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listenerCS,this);
 
-	//¶ÔshowHelpµÄ¼àÌý
+	//å¯¹showHelpçš„ç›‘å¬
 	auto listenerSH = EventListenerCustom ::create("SHOW_HELP",CC_CALLBACK_1(GameScene::showHelp, this));
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listenerSH,this);
 
-	//¶ÔcloseHelpµÄ¼àÌý
+	//å¯¹closeHelpçš„ç›‘å¬
 	auto listenerCH = EventListenerCustom ::create("CLOSE_HELP",CC_CALLBACK_1(GameScene::closeHelp, this));
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listenerCH,this);
 
-	//¶ÔrestartµÄ¼àÌý
+	//å¯¹restartçš„ç›‘å¬
 	auto listenerRST = EventListenerCustom ::create("RESTART_GAME",CC_CALLBACK_1(GameScene::restartGame, this));
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listenerRST,this);
 
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	//¶Ô°´¼üÊÂ¼þµÄ¼àÌý
+	//å¯¹æŒ‰é”®äº‹ä»¶çš„ç›‘å¬
 	auto listenerkeyPad = EventListenerKeyboard::create();
 	listenerkeyPad->onKeyReleased = CC_CALLBACK_2(GameScene::onKeyReleased, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listenerkeyPad, this);
@@ -146,14 +146,14 @@ bool GameScene::init()
 
 	if (UserDefault::getInstance()->getBoolForKey("needTutorial",true))
 	{
-		//¸ù¾ÝÊÇ·ñµÚÒ»´Î½øÈëÓÎÏ· ÏÔÊ¾½Ì³Ì
+		//æ ¹æ®æ˜¯å¦ç¬¬ä¸€æ¬¡è¿›å…¥æ¸¸æˆ æ˜¾ç¤ºæ•™ç¨‹
 		auto tutorialLayer = GameTutorialLayer::create();
 		this->addChild(tutorialLayer, 3,tutorialLayerTag);
 		UserDefault::getInstance()->setBoolForKey("needTutorial",false);
 	}
 	else
 	{
-		//´´½¨BlockLayer
+		//åˆ›å»ºBlockLayer
 		auto blocksLayer = BlocksLayer::create();
 		//blocksLayer->setPosition(Vec2(origin.x,origin.y));
 		//blocksLayer->setPosition(Vec2(origin.x + visibleSize.width/2 , origin.y + visibleSize.height / 2));
@@ -184,7 +184,7 @@ void GameScene::skipTutorial( cocos2d::EventCustom* event )
 	if (nullptr == this->getChildByTag(blocksLayerTag))
 	{
 
-		//´´½¨BlockLayer
+		//åˆ›å»ºBlockLayer
 		auto blocksLayer = BlocksLayer::create();
 		//blocksLayer->setPosition(Vec2(origin.x,origin.y));
 		//blocksLayer->setPosition(Vec2(origin.x + visibleSize.width/2 , origin.y + visibleSize.height / 2));

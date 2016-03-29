@@ -1,4 +1,4 @@
-#include "GameOverLayer.h"
+﻿#include "GameOverLayer.h"
 
 USING_NS_CC;
 

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "cocos2d.h"
 #include "TutorialPage.h"
@@ -13,42 +13,44 @@ public:
 	// implement the "static create()" method manually
 	CREATE_FUNC(GameTutorialLayer);
 
-	//Ìø¹ı½Ì³Ì
+	//è·³è¿‡æ•™ç¨‹
 	void skipTutorial(cocos2d::Ref* pSender);
 
 private:
 
-	//ÏÔÊ¾µ±Ç°ÊÇµÚxÒ³ µÄ½ø¶ÈĞ¡µã ¹²4¸ö
+	//æ˜¾ç¤ºå½“å‰æ˜¯ç¬¬xé¡µ çš„è¿›åº¦å°ç‚¹ å…±4ä¸ª
 	cocos2d::Vector<cocos2d::Sprite*> pageIndicators;
 
-	//¸÷¸öÒ³Ãæ ¹²4¸ö
+	//å„ä¸ªé¡µé¢ å…±4ä¸ª
 	//cocos2d::Vector<TutorialPage*> pages;
 
-	//ÈİÆ÷
+	//å®¹å™¨
 	cocos2d::Node* container;
 
-	//µ±Ç°µÄ½ø¶È ÊÇµÚxÒ³
+	//å½“å‰çš„è¿›åº¦ æ˜¯ç¬¬xé¡µ
 	unsigned _pageIndex;
 
-	//ÉèÖÃÒ³Ãæ
+	//è®¾ç½®é¡µé¢
 	void setPage();
 
-	//ÒÆ¶¯ÖÁÒ³Ãæ
+	//ç§»åŠ¨è‡³é¡µé¢
 	void moveToPage();
 
-	//¹ØÓÚ´¥ÃşÊÂ¼ş
+	//å…³äºè§¦æ‘¸äº‹ä»¶
 	virtual bool onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *unused);
 	virtual void onTouchMoved(cocos2d::Touch *touch, cocos2d::Event *unused);
 	virtual void onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *unused);
 	virtual void onTouchCancelled(cocos2d::Touch *touch, cocos2d::Event *unused);
 
-	//´¥ÃşÆğÊ¼µãµÄx×ø±ê
+	//è§¦æ‘¸èµ·å§‹ç‚¹çš„xåæ ‡
 	float touchStartingPointX;
 
-	//µ±Ç°containerµÄx×ø±ê
+	//å½“å‰containerçš„xåæ ‡
 	float currentContainerX;
 
-	
+	//è®°å½•æ»‘åŠ¨é€Ÿåº¦
+	float X_v_begin;
+	float X_v_end;
 	
 };
 

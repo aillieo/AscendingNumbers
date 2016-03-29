@@ -1,4 +1,4 @@
-#include "GameTutorialLayer.h"
+ï»¿#include "GameTutorialLayer.h"
 #include "MultiLanguagePathGetter.h"
 
 
@@ -42,14 +42,14 @@ bool GameTutorialLayer::init()
 	this->addChild(label, 1);
 
 
-	//Ìø¹ý½Ì³ÌµÄ°´Å¥
+	//è·³è¿‡æ•™ç¨‹çš„æŒ‰é’®
 	std::string str_end = ((String*)dictionary->objectForKey("END TUTORIAL"))->getCString(); 
 	auto skipItem = MenuItemLabel::create(LabelBMFont::create(str_end.c_str(), filename.c_str()),CC_CALLBACK_1(GameTutorialLayer::skipTutorial, this));
 	auto menu = Menu::create(skipItem,NULL);
 	menu->setPosition(Vec2(origin.x + visibleSize.width/2, origin.y + label->getContentSize().height));
 	this->addChild(menu,1000);
 
-	//Ò³ÃæµÄÈÝÆ÷
+	//é¡µé¢çš„å®¹å™¨
 	container = Node::create();
 	addChild(container,2);
 	container->setAnchorPoint(Point(0,0));
@@ -59,14 +59,14 @@ bool GameTutorialLayer::init()
 	
 	for (int i = 0;i<4;i++)
 	{
-		//Ð¡µã
+		//å°ç‚¹
 		auto pointt = Sprite::create("BLANK.png");
 		pointt->setTextureRect(Rect(0,0,10,10));
 		addChild(pointt,9);
 		pointt->setPosition(Vec2(origin.x+visibleSize.width*0.41+i*visibleSize.width*0.06,origin.y+visibleSize.height*0.15));
 		pageIndicators.pushBack(pointt);
 
-		//Ò³Ãæ
+		//é¡µé¢
 		auto page = TutorialPage::create(i);
 		container->addChild(page,2);
 
@@ -86,7 +86,7 @@ bool GameTutorialLayer::init()
 
 
 
-	//¶Ô´¥ÃþÊÂ¼þµÄ¼àÌý
+	//å¯¹è§¦æ‘¸äº‹ä»¶çš„ç›‘å¬
 	auto touchListener=EventListenerTouchOneByOne::create();
 	touchListener->onTouchBegan=CC_CALLBACK_2(GameTutorialLayer::onTouchBegan,this);
 	touchListener->onTouchMoved=CC_CALLBACK_2(GameTutorialLayer::onTouchMoved,this);
@@ -159,14 +159,27 @@ bool GameTutorialLayer::onTouchBegan( cocos2d::Touch *touch, cocos2d::Event *unu
 
 	log("touch began pi = %d",_pageIndex);
 
+
+	X_v_begin = touchStartingPointX;
+	X_v_end = touchStartingPointX;
+
 	return true;
 }
 
 void GameTutorialLayer::onTouchMoved( cocos2d::Touch *touch, cocos2d::Event *unused )
 {
 
+	X_v_begin = X_v_end;
+	X_v_end = touch->getLocation().x;
 
-	container->setPositionX(currentContainerX + touch->getLocation().x - touchStartingPointX );
+	float X_v = X_v_end - X_v_begin;
+	if (((_pageIndex == 0 )&&( X_v > 0))||((_pageIndex == 3 )&&( X_v < 0)))
+	{
+		X_v = X_v * 0.2;
+	}
+
+
+	container->setPositionX(container->getPositionX() + X_v );
 
 
 }
@@ -178,30 +191,54 @@ void GameTutorialLayer::onTouchEnded( cocos2d::Touch *touch, cocos2d::Event *unu
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	unsigned tmp;
+	unsigned tmp = _pageIndex;
+	float X_v = X_v_end - X_v_begin;
 
 	currentContainerX = container->getPositionX();
 
-	for (unsigned u = 0; u<4; u++)
+	
+	if (X_v < -10)
 	{
-		if (abs(currentContainerX + u* visibleSize.width)<visibleSize.width * 0.5)
+		if (tmp!=3)
 		{
-			tmp = u;
+			tmp ++ ;
+		}
+	}
+	else if (X_v >10)
+	{
+		if (tmp!=0)
+		{
+			tmp -- ;
+		}
+
+	}
+	else
+	{
+		for (unsigned u = 0; u<4; u++)
+		{
+			if (abs(currentContainerX + u* visibleSize.width)<visibleSize.width * 0.5)
+			{
+				tmp = u;
+			}
+		}
+
+		if (currentContainerX > visibleSize.width * 0.5)
+		{
+			tmp = 0;
+		}
+		else if (currentContainerX < visibleSize.width * (-3.5))
+		{
+			tmp = 3;
 		}
 	}
 
-	if (currentContainerX > visibleSize.width * 0.5)
-	{
-		tmp = 0;
-	}
-	else if (currentContainerX < visibleSize.width * (-3.5))
-	{
-		tmp = 3;
-	}
 
 
 
-	//ÅÐ¶ÏÎ»ÖÃ
+
+
+
+	//åˆ¤æ–­ä½ç½®
 	_pageIndex = tmp;
 	moveToPage();
 	//log("touch end pi = %d",_pageIndex);

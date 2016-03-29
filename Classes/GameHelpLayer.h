@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "cocos2d.h"
 
@@ -12,7 +12,7 @@ public:
 	// implement the "static create()" method manually
 	CREATE_FUNC(GameHelpLayer);
 
-	//Ìø¹ý½Ì³Ì
+	//è·³è¿‡æ•™ç¨‹
 	void closeHelp(cocos2d::Ref* pSender);
 
 

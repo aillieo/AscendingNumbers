@@ -1,4 +1,4 @@
-#include "GameHelpLayer.h"
+﻿#include "GameHelpLayer.h"
 //#include "tinyxml2/tinyxml2.h"
 #include "MultiLanguagePathGetter.h"
 

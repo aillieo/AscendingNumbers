@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "cocos2d.h"
 #include "Block.h"
@@ -7,18 +7,18 @@ class TutorialPage : public cocos2d::Sprite
 {
 public:
 
-	//³õÊ¼»¯
+	//åˆå§‹åŒ–
 	virtual bool init(unsigned index);  
 
-	//createº¯Êı
+	//createå‡½æ•°
 	static TutorialPage* create(unsigned index);
 
-	//±êÇ©µÄvec
+	//æ ‡ç­¾çš„vec
 	//cocos2d::Vector<LabelTTF*> captions;
 
 private:
 
-	//ÎÄ±¾±êÇ©
+	//æ–‡æœ¬æ ‡ç­¾
 	cocos2d::LabelBMFont* caption;
 
 	cocos2d::Point getCenterPoint( int row, int col );
