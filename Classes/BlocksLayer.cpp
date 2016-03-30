@@ -3,6 +3,7 @@
 #include "Cloud.h"
 #include "MultiLanguagePathGetter.h"
 
+
 USING_NS_CC;
 
 const float gapSize = 0.0f;
@@ -34,96 +35,9 @@ bool BlocksLayer::init()
 	hasGameBegan = false;
 	isTouchEventValid = true;
 
-	//创建方格阵的背景 430x430 两个格子块之间间隙5
-	auto holder = Sprite::create("BLANK.png");
-	holder->setTextureRect(Rect(0,0,640,640));
-	holder-> setPosition(origin.x + visibleSize.width / 2 , origin.y + holder->getContentSize().height/2 );
-	holder->setOpacity(0);
-	this->addChild(holder,0);
-
-	//获取basePoint
-	basePoint = Point(holder->getPositionX() - holder->getContentSize().width /2 ,holder->getPositionY() - holder->getContentSize().height /2 );
-
-	//根据当前时间 产生随机数种子
-	struct timeval nowTimeval;
-	gettimeofday(&nowTimeval, NULL);
-	struct tm * tm;
-	time_t time_sec ;
-	time_sec = nowTimeval.tv_sec;
-	tm = localtime(&time_sec);
-	int nSec = tm->tm_sec;
-	int nMin = tm->tm_min;
-	int nHour = tm->tm_hour;
-	int nDay = tm->tm_yday;
-	int nSeed = ((nDay*24+nHour)*60+nMin)*60 + nSec ;
-	//log("%d", nSeed);
-	srand(nSeed); 
-
-	//除了2以外的数中 “3”或 “1”的个数
-	int rest1 = (matrix_height*matrix_width)/4;
-	int rest3 = (matrix_height*matrix_width)/4;
-
-	//初始化方阵 
-	blocks = Vector<Block*>(matrix_height * matrix_width); 
-	for (int row = 0; row < matrix_height; row++) 
-	{
-		for (int col = 0; col < matrix_width; col++) 
-		{
-			unsigned blockValue = 3;
-
-			if ((col + row)%2 == 0)
-			{
-				blockValue = 2;
-			}
-			else
-			{
-				
-				//随机生成1或3 并确保1和3的个数
-				if(CCRANDOM_0_1() > 0.5f )
-				{
-				
-					if (rest1>0)
-					{
-						blockValue = 1;
-						rest1--;
-					}
-					else
-					{
-						blockValue = 3;
-						rest3--;
-					}
-					
-				}
-				else
-				{
-
-
-					
-					if (rest3>0)
-					{
-						blockValue = 3;
-						rest3--;
-					}
-					else
-					{
-						blockValue = 1;
-						rest1--;
-					}
-
-
-				}
-
-			}
-
-			createBlock(row, col, blockValue );
-
-		}
-	}
+	initBlocks();
 	
 
-	
-
-	
 	//飘两朵云
 	auto cloud1 = Cloud::create();
 	cloud1->setPositionX(origin.x);
@@ -147,6 +61,21 @@ bool BlocksLayer::init()
 	//对音效设置的监听
 	auto listenerSS = EventListenerCustom ::create("SET_SOUND",CC_CALLBACK_1(BlocksLayer::setSound, this));
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listenerSS,this);
+
+
+/*
+	//测试用开始
+	for (int i = 0 ; i< 25 ; i++)
+	{
+		blocks.at(i)->setBlockValue(i+1);
+	}
+	blocks.at(2)->setBlockValue(1);
+	_maxNumberEver = 28;
+	//测试用结束
+
+	*/
+
+
 
     return true;
 }
@@ -399,6 +328,7 @@ void BlocksLayer::finishSelection()
 		}
 		//CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("AllOneFinish.wav",false);
 		playSound("AllOneFinish.wav");
+
 	}
 
 
@@ -442,6 +372,13 @@ void BlocksLayer::finishSelection()
 
 	blocksPressed.clear();
 	//clearSelection();
+
+	if (checkEnding())
+	{
+		onGameOver();
+	}
+	
+
 }
 
 void BlocksLayer::clearSelection()
@@ -506,9 +443,6 @@ void BlocksLayer::checkSwipeAction( cocos2d::Point point )
 }
 
 
-
-
-
 void BlocksLayer::firstStep()
 {
 
@@ -553,7 +487,6 @@ void BlocksLayer::firstStep()
 }
 
 
-
 void BlocksLayer::updateSum(int newSum)
 {
 	if (_maxNumberEver >= newSum)
@@ -568,8 +501,10 @@ void BlocksLayer::updateSum(int newSum)
 		String* st = String::createWithFormat("%3d",_maxNumberEver);
 		_labelMaxNumberEver->setString(st->_string);
 	}
-}
 
+
+
+}
 
 
 void BlocksLayer::setReduceChancesLeft( int reduceChancesLeft )
@@ -578,8 +513,6 @@ void BlocksLayer::setReduceChancesLeft( int reduceChancesLeft )
 	String* st = String::createWithFormat("%3d",_reduceChancesLeft);
 	_labelReduceChancesLeft->setString(st->_string);
 }
-
-
 
 
 void BlocksLayer::setSound(EventCustom* event)
@@ -595,6 +528,167 @@ void BlocksLayer::playSound(const std::string filename)
 	{
 		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(filename.c_str(),false);
 	}
+
+}
+
+bool BlocksLayer::checkEnding()
+{
+
+	if (_maxNumberEver < 28)
+	{
+		return false;
+	}
+
+	std::set<unsigned> all;
+
+	for (Block* b : blocks)
+	{
+		all.insert(b->getBlockValue());
+	}
+	log(" all size = %d" , all.size());
+
+
+	if (all.size() == 25)
+	{
+		for (int i = 1 ; i<=25 ; i++)
+		{
+			if (all.count(i) != 1)
+			{
+				return false;
+			}
+		}
+		log("GAME OVER WIN");
+		return true;
+		
+	}
+
+	return false;
+
+}
+
+void BlocksLayer::onGameOver()
+{
+
+	//按照从小到大的顺序 重新排列blocks索引
+	std::sort(blocks.begin(),blocks.end(),[](Block* b1, Block* b2){return b1->getBlockValue()<b2->getBlockValue();});
+
+	//动画
+	ParticleSystem* ps = ParticleSystemQuad::create("particle.plist");
+	addChild(ps,10);
+
+	Vector<FiniteTimeAction*> actions;
+
+	for (int i=0 ; i<25 ; i++)
+	{
+		MoveTo* mt = MoveTo::create(0.2,blocks.at(i)->getPosition());
+		actions.pushBack(mt);
+		DelayTime* dt = DelayTime::create(0.2);
+		actions.pushBack(dt);
+	}
+	Sequence* seq = Sequence::create(actions);
+	ps->runAction(RepeatForever::create(seq));
+
+	//音乐
+
+
+}
+
+void BlocksLayer::initBlocks()
+{
+
+
+	Size visibleSize = Director::getInstance()->getVisibleSize();
+	Vec2 origin = Director::getInstance()->getVisibleOrigin();
+
+
+	//创建方格阵的背景 430x430 两个格子块之间间隙5
+	holder = Sprite::create("BLANK.png");
+	holder->setTextureRect(Rect(0,0,640,640));
+	holder-> setPosition(origin.x + visibleSize.width / 2 , origin.y + holder->getContentSize().height/2 );
+	holder->setOpacity(0);
+	this->addChild(holder,0);
+
+	//获取basePoint
+	basePoint = Point(holder->getPositionX() - holder->getContentSize().width /2 ,holder->getPositionY() - holder->getContentSize().height /2 );
+
+	//根据当前时间 产生随机数种子
+	struct timeval nowTimeval;
+	gettimeofday(&nowTimeval, NULL);
+	struct tm * tm;
+	time_t time_sec ;
+	time_sec = nowTimeval.tv_sec;
+	tm = localtime(&time_sec);
+	int nSec = tm->tm_sec;
+	int nMin = tm->tm_min;
+	int nHour = tm->tm_hour;
+	int nDay = tm->tm_yday;
+	int nSeed = ((nDay*24+nHour)*60+nMin)*60 + nSec ;
+	//log("%d", nSeed);
+	srand(nSeed); 
+
+	//除了2以外的数中 “3”或 “1”的个数
+	int rest1 = (matrix_height*matrix_width)/4;
+	int rest3 = (matrix_height*matrix_width)/4;
+
+	//初始化方阵 
+	blocks = Vector<Block*>(matrix_height * matrix_width); 
+	for (int row = 0; row < matrix_height; row++) 
+	{
+		for (int col = 0; col < matrix_width; col++) 
+		{
+			unsigned blockValue = 3;
+
+			if ((col + row)%2 == 0)
+			{
+				blockValue = 2;
+			}
+			else
+			{
+
+				//随机生成1或3 并确保1和3的个数
+				if(CCRANDOM_0_1() > 0.5f )
+				{
+
+					if (rest1>0)
+					{
+						blockValue = 1;
+						rest1--;
+					}
+					else
+					{
+						blockValue = 3;
+						rest3--;
+					}
+
+				}
+				else
+				{
+
+
+
+					if (rest3>0)
+					{
+						blockValue = 3;
+						rest3--;
+					}
+					else
+					{
+						blockValue = 1;
+						rest1--;
+					}
+
+
+				}
+
+			}
+
+			createBlock(row, col, blockValue );
+
+		}
+	}
+
+
+
 
 }
 

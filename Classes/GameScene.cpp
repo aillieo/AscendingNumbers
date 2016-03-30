@@ -1,7 +1,6 @@
 ﻿#include "GameScene.h"
 #include "BlocksLayer.h"
 #include "GameSettingLayer.h"
-#include "GameOverLayer.h"
 #include "GameTutorialLayer.h"
 #include "GameHelpLayer.h"
 #include "MultiLanguagePathGetter.h"

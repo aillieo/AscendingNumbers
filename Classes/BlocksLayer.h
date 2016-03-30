@@ -41,6 +41,15 @@ public:
 
 private:
 
+
+	//方格阵的背景
+	cocos2d::Sprite* holder;
+
+
+	//初始化方格阵
+	void initBlocks();
+
+
 	//判断音效是否开启
 	bool isSoundEnabled;
 
@@ -106,6 +115,12 @@ private:
 
 
 
+	//检查是否已游戏结束
+	bool checkEnding();
+
+
+	//播放游戏结束动画
+	void onGameOver();
 
 };
 
