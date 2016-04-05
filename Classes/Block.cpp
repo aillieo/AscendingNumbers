@@ -29,6 +29,8 @@ bool Block::init()
 
 	isPressed = false;
 
+
+
     return true;
 }
 
@@ -89,13 +91,13 @@ void Block::setBlockColor( unsigned blockValue )
 {
 	if (blockValue>25)
 	{
-
-		setColor(ccc3(255,0,0));
+		label->setColor(Color3B(160,160,160));
+		setColor(ccc3(80,80,80));
 
 	}
 	else
 	{
-
+		label->setColor(Color3B(255,255,255));
 		int r = (blockValue-1)*255/25;
 		int g = (12.5-abs((int)(blockValue-1-12.5)))*255/12.5;
 		int b = (26-blockValue)*255/25;
@@ -120,7 +122,7 @@ void Block::onPressCancelled()
 {
 	isPressed = false;
 	auto action = ScaleTo::create(0.2f,1.0);
-	this->stopAllActions();
+	//this->stopAllActions();
 	this->runAction(action);
 }
 
@@ -147,9 +149,18 @@ void Block::onSelectionFinished( bool isLargestNumber )
 
 void Block::onReduce()
 {
-	auto action1 = FadeOut::create(0.1f);
-	auto action2 = FadeIn::create(0.1f);
+	//auto action1 = FadeOut::create(0.1f);
+	//auto action2 = FadeIn::create(0.1f);
 	this->stopAllActions();
-	this->runAction(Sequence::create(action1,action2,NULL));
+
+	float d1 = CCRANDOM_0_1()*0.22;
+	float d2 = 0.5 - d1 * 2.0;
+
+	auto action0 = DelayTime::create(d2);
+	auto action1 = ScaleTo::create(d1,0.8f,0.0f);
+	auto action2 = CallFunc::create([this](){setBlockValue(getBlockValue()-1);});
+	auto action3 = ScaleTo::create(d2,1.0f,1.0f);
+
+	this->runAction(Sequence::create(action0,action1,action2,action3,NULL));
 }
 

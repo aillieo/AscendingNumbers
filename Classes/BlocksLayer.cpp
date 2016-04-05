@@ -33,7 +33,11 @@ bool BlocksLayer::init()
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 	hasGameBegan = false;
+	isGameOver = false;
 	isTouchEventValid = true;
+
+	_maxNumberEver = 0;
+	_reduceChancesLeft = 0;
 
 	initBlocks();
 	
@@ -63,6 +67,8 @@ bool BlocksLayer::init()
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listenerSS,this);
 
 
+	playBackgroundMusic();
+
 /*
 	//测试用开始
 	for (int i = 0 ; i< 25 ; i++)
@@ -70,6 +76,7 @@ bool BlocksLayer::init()
 		blocks.at(i)->setBlockValue(i+1);
 	}
 	blocks.at(2)->setBlockValue(1);
+	_reduceChancesLeft = 20;
 	_maxNumberEver = 28;
 	//测试用结束
 
@@ -88,6 +95,14 @@ void BlocksLayer::createBlock(int row, int col, unsigned blockValue)
 	this->addChild(tmpBlock,3);
 
 	blocks.insert(row * matrix_width + col , tmpBlock);
+
+
+	tmpBlock->setOpacity(0);
+	tmpBlock->setScale(0);
+	auto action1 = FadeIn::create(0.2 + 0.6 * CCRANDOM_0_1());
+	auto action2 = ScaleTo::create(0.1 + 0.3 * CCRANDOM_0_1(),1);
+	auto action3 = Spawn::create(action1,action2,NULL);
+	tmpBlock->runAction(action3);
 }
 
 cocos2d::Point BlocksLayer::getCenterPoint( int row, int col )
@@ -170,7 +185,10 @@ void BlocksLayer::onTouchEnded( Touch *touch, Event *unused )
 	}
 
 
-
+	if (isGameOver)
+	{
+		return;
+	}
 
 	//如果按在已按的格子上
 	if (tmp->isPressed)
@@ -280,7 +298,8 @@ void BlocksLayer::superReduce()
 	{
 		if (blk->getBlockValue() != 1)
 		{
-			blk->setBlockValue(blk->getBlockValue()-1);
+
+			blk->onReduce();
 			ct++;
 			
 			
@@ -435,7 +454,11 @@ void BlocksLayer::checkSwipeAction( cocos2d::Point point )
 		else
 		{
 			log("down REDUCE");
-			superReduce();
+			if (!isGameOver)
+			{
+				superReduce();
+			}
+			
 
 		}
 
@@ -489,6 +512,7 @@ void BlocksLayer::firstStep()
 
 void BlocksLayer::updateSum(int newSum)
 {
+	
 	if (_maxNumberEver >= newSum)
 	{
 		log("same");
@@ -500,6 +524,16 @@ void BlocksLayer::updateSum(int newSum)
 		_maxNumberEver = newSum;
 		String* st = String::createWithFormat("%3d",_maxNumberEver);
 		_labelMaxNumberEver->setString(st->_string);
+
+		if (_maxNumberEver > 3)
+		{
+			//动画
+			ParticleSystem* ps = ParticleSystemQuad::create("newMax.plist");
+			addChild(ps,10);
+			ps->setPosition(_labelMaxNumberEver->getPosition());
+			ps->setAutoRemoveOnFinish(true);
+		}
+
 	}
 
 
@@ -519,6 +553,23 @@ void BlocksLayer::setSound(EventCustom* event)
 {
 
 	isSoundEnabled = UserDefault::getInstance()->getBoolForKey("Sound");
+
+	if (isSoundEnabled)
+	{
+		if (CocosDenshion::SimpleAudioEngine::getInstance()->isBackgroundMusicPlaying())
+		{
+			CocosDenshion::SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
+		}
+		else
+		{
+			playBackgroundMusic();
+		}
+	}
+	else
+	{
+		CocosDenshion::SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
+	}
+
 
 }
 
@@ -569,6 +620,8 @@ bool BlocksLayer::checkEnding()
 void BlocksLayer::onGameOver()
 {
 
+	isGameOver = true;
+
 	//按照从小到大的顺序 重新排列blocks索引
 	std::sort(blocks.begin(),blocks.end(),[](Block* b1, Block* b2){return b1->getBlockValue()<b2->getBlockValue();});
 
@@ -611,7 +664,10 @@ void BlocksLayer::initBlocks()
 	//获取basePoint
 	basePoint = Point(holder->getPositionX() - holder->getContentSize().width /2 ,holder->getPositionY() - holder->getContentSize().height /2 );
 
+	/*
+	
 	//根据当前时间 产生随机数种子
+
 	struct timeval nowTimeval;
 	gettimeofday(&nowTimeval, NULL);
 	struct tm * tm;
@@ -625,6 +681,8 @@ void BlocksLayer::initBlocks()
 	int nSeed = ((nDay*24+nHour)*60+nMin)*60 + nSec ;
 	//log("%d", nSeed);
 	srand(nSeed); 
+
+	*/
 
 	//除了2以外的数中 “3”或 “1”的个数
 	int rest1 = (matrix_height*matrix_width)/4;
@@ -690,6 +748,14 @@ void BlocksLayer::initBlocks()
 
 
 
+}
+
+void BlocksLayer::playBackgroundMusic()
+{
+	if (isSoundEnabled)
+	{
+		CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("bg_music.mp3",true);
+	}
 }
 
 

@@ -224,11 +224,26 @@ void GameScene::showTutorial( cocos2d::EventCustom* event )
 void GameScene::closeSetting( cocos2d::EventCustom* event )
 {
 
-	this->removeChildByTag(settingLayerTag);
-	
-	this->getChildByTag(blocksLayerTag)->setVisible(true);
-	//((BlocksLayer*)(this->getChildByTag(blocksLayerTag)))->setTouchEnabled(true);
-	((BlocksLayer*)(this->getChildByTag(blocksLayerTag)))->isTouchEventValid = true;
+	auto action1 = DelayTime::create(0.3);
+	auto action2 = CallFunc::create([&](){
+
+		this->removeChildByTag(settingLayerTag);
+
+		this->getChildByTag(blocksLayerTag)->setVisible(true);
+		//((BlocksLayer*)(this->getChildByTag(blocksLayerTag)))->setTouchEnabled(true);
+		((BlocksLayer*)(this->getChildByTag(blocksLayerTag)))->isTouchEventValid = true;
+
+	});
+
+	auto action3 = Sequence::create(action1, action2, NULL);
+	runAction(action3);
+
+
+	auto action4 = MoveBy::create(0.3,Vec2(0,-1280));
+	getChildByTag(settingLayerTag)->runAction(action4);
+
+
+
 
 }
 

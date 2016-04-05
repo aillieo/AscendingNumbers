@@ -22,6 +22,11 @@ public:
 
 	void showTutorial(cocos2d::Ref* pSender);
 
+	void menuEnter();
+
+	void menuExit();
+
+	cocos2d::Menu* menu;
 
 };
 

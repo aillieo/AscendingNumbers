@@ -73,11 +73,12 @@ bool GameSettingLayer::init()
 	auto tutorialItem = MenuItemLabel::create(LabelBMFont::create(str_tutorial, filename.c_str()),CC_CALLBACK_1(GameSettingLayer::showTutorial, this));
 
 
-	auto menu = Menu::create(resumeItem,restartItem,soundItem,helpItem,tutorialItem,NULL);
+	menu = Menu::create(resumeItem,restartItem,soundItem,helpItem,tutorialItem,NULL);
 	menu->setPosition(Vec2(origin.x + visibleSize.width/2, origin.y + visibleSize.height/2));
 	menu->alignItemsVerticallyWithPadding(10);
 	this->addChild(menu,1);
 
+	menuEnter();
 
 
 	return true;
@@ -87,6 +88,8 @@ void GameSettingLayer::resumeGame(cocos2d::Ref* pSender)
 {
 	EventCustom event = EventCustom("RESUME_GAME");
 	_eventDispatcher->dispatchEvent(&event);
+	menu->setEnabled(false);
+
 }
 
 void GameSettingLayer::restartGame( cocos2d::Ref* pSender )
@@ -127,6 +130,41 @@ void GameSettingLayer::showTutorial( cocos2d::Ref* pSender )
 {
 	EventCustom event = EventCustom("SHOW_TUTORIAL");
 	_eventDispatcher->dispatchEvent(&event);
+}
+
+void GameSettingLayer::menuEnter()
+{
+
+	Size visibleSize = Director::getInstance()->getVisibleSize();
+	Vec2 origin = Director::getInstance()->getVisibleOrigin();
+
+
+	auto items =  menu->getChildren();
+
+	//std::vector<float> pYs = std::vector<float>();
+	float pX = 0;
+
+	for (int i = 0 ; i<5 ; i++)
+	{
+		//pYs.push_back(items.at(i)->getPositionY());
+		float pY = items.at(i)->getPositionY();
+		items.at(i)->setPositionY(visibleSize.height * (- 0.5));
+
+		items.at(i)->stopAllActions();
+		JumpTo* jt = JumpTo::create(0.4,Vec2(pX,pY),300 - 50* i,1);
+		items.at(i)->runAction(jt);
+
+	}
+
+
+
+
+
+}
+
+void GameSettingLayer::menuExit()
+{
+
 }
 
 

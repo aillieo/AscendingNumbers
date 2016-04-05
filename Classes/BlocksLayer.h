@@ -65,6 +65,8 @@ private:
 
 	//游戏是否已经开始
 	bool hasGameBegan;
+	//游戏是否已经结束
+	bool isGameOver;
 
 	//创建方块 根据行号 列号 方格的数字值
 	void createBlock(int row, int col, unsigned blockValue);
@@ -79,6 +81,8 @@ private:
 	//播放音效
 	void playSound(const std::string filename);
 
+	//播放背景音乐
+	void playBackgroundMusic();
 
 
 	//左下角的基准点 holder的左下角 距离左下角的方格有间隙
