@@ -153,14 +153,27 @@ void Block::onReduce()
 	//auto action2 = FadeIn::create(0.1f);
 	this->stopAllActions();
 
-	float d1 = CCRANDOM_0_1()*0.22;
-	float d2 = 0.5 - d1 * 2.0;
+	float d1 = 0.1 + CCRANDOM_0_1()*0.18;
+	//float d2 = 0.6 - d1 * 2.0;
 
-	auto action0 = DelayTime::create(d2);
-	auto action1 = ScaleTo::create(d1,0.8f,0.0f);
-	auto action2 = CallFunc::create([this](){setBlockValue(getBlockValue()-1);});
-	auto action3 = ScaleTo::create(d2,1.0f,1.0f);
 
-	this->runAction(Sequence::create(action0,action1,action2,action3,NULL));
+
+	//auto action0 = DelayTime::create(d2);
+	auto action1 = ScaleTo::create(d1,0.8f,0.1f);
+	auto action2 = MoveTo::create(d1,_initPos - Vec2(0,40));
+	auto action3 = CallFunc::create([this](){setBlockValue(getBlockValue()-1);});
+	auto action4 = ScaleTo::create(d1,1.0f,1.0f);
+	auto action5 = MoveTo::create(d1,_initPos);
+	auto action6 = Spawn::create(action1,action2,NULL);
+	auto action7 = Spawn::create(action4,action5,NULL);
+
+	//this->runAction(Sequence::create(action0,action6,action3,action7,NULL));
+	this->runAction(Sequence::create(action6,action3,action7,NULL));
+}
+
+void Block::initPosition( cocos2d::Point p )
+{
+	_initPos = p;
+	setPosition(p);
 }
 

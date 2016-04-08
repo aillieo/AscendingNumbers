@@ -48,10 +48,10 @@ bool TutorialPage::init( unsigned index )
 
 	std::string filename = MultiLanguagePathGetter::getPath() + "/font.fnt";
 
-	caption = LabelBMFont::create("CAPTION", filename.c_str());
-	caption->setScale(38.0f/60.0f);
-	caption->setWidth(visibleSize.width * 60.0f / 42.0f);
-	caption->setAlignment(TextHAlignment::CENTER);
+	caption = LabelTTF::create("CAPTION",  "Arial" , 42);
+	//caption->setScale(38.0f/60.0f);
+	caption->setDimensions(Size(visibleSize.width * 0.8,0));
+	caption->setHorizontalAlignment(TextHAlignment::CENTER);
 	caption->setPosition(Vec2(origin.x , origin.y - visibleSize.height * 0.2));
 	addChild(caption, 3);
 

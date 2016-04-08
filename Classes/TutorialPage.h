@@ -19,7 +19,7 @@ public:
 private:
 
 	//文本标签
-	cocos2d::LabelBMFont* caption;
+	cocos2d::LabelTTF* caption;
 
 	cocos2d::Point getCenterPoint( int row, int col );
 	cocos2d::Point basePoint;

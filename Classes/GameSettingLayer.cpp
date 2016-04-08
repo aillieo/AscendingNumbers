@@ -48,15 +48,15 @@ bool GameSettingLayer::init()
 	std::string str_help = ((String*)dictionary->objectForKey("HELP"))->getCString(); 
 	std::string str_tutorial = ((String*)dictionary->objectForKey("TUTORIAL"))->getCString(); 
 
-	filename = MultiLanguagePathGetter::getPath() + "/font.fnt";
+	//filename = MultiLanguagePathGetter::getPath() + "/font.fnt";
 
 
 
-	auto resumeItem = MenuItemLabel::create(LabelBMFont::create(str_resume.c_str(), filename.c_str()),CC_CALLBACK_1(GameSettingLayer::resumeGame, this));
-	auto restartItem = MenuItemLabel::create(LabelBMFont::create(str_restart, filename.c_str()),CC_CALLBACK_1(GameSettingLayer::restartGame, this));
+	auto resumeItem = MenuItemLabel::create(LabelTTF::create(str_resume.c_str(),  "Arial" , 60),CC_CALLBACK_1(GameSettingLayer::resumeGame, this));
+	auto restartItem = MenuItemLabel::create(LabelTTF::create(str_restart,  "Arial" , 60),CC_CALLBACK_1(GameSettingLayer::restartGame, this));
 	auto soundItem = MenuItemToggle::createWithCallback(CC_CALLBACK_1(GameSettingLayer::setSound, this),
-													MenuItemLabel::create(LabelBMFont::create(str_sound_on, filename.c_str())),
-													MenuItemLabel::create(LabelBMFont::create(str_sound_off, filename.c_str())),
+													MenuItemLabel::create(LabelTTF::create(str_sound_on,  "Arial" , 60)),
+													MenuItemLabel::create(LabelTTF::create(str_sound_off,  "Arial" , 60)),
 													NULL);
 	if (UserDefault::getInstance()->getBoolForKey("Sound",true))
 	{
@@ -69,8 +69,8 @@ bool GameSettingLayer::init()
 
 
 
-	auto helpItem = MenuItemLabel::create(LabelBMFont::create(str_help, filename.c_str()),CC_CALLBACK_1(GameSettingLayer::showHelpInfo, this));
-	auto tutorialItem = MenuItemLabel::create(LabelBMFont::create(str_tutorial, filename.c_str()),CC_CALLBACK_1(GameSettingLayer::showTutorial, this));
+	auto helpItem = MenuItemLabel::create(LabelTTF::create(str_help, "Arial" , 60),CC_CALLBACK_1(GameSettingLayer::showHelpInfo, this));
+	auto tutorialItem = MenuItemLabel::create(LabelTTF::create(str_tutorial, "Arial" , 60),CC_CALLBACK_1(GameSettingLayer::showTutorial, this));
 
 
 	menu = Menu::create(resumeItem,restartItem,soundItem,helpItem,tutorialItem,NULL);
@@ -89,6 +89,8 @@ void GameSettingLayer::resumeGame(cocos2d::Ref* pSender)
 	EventCustom event = EventCustom("RESUME_GAME");
 	_eventDispatcher->dispatchEvent(&event);
 	menu->setEnabled(false);
+
+	//playSound("Menu_show.mp3");
 
 }
 

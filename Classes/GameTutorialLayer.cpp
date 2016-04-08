@@ -32,7 +32,7 @@ bool GameTutorialLayer::init()
 
 
 	std::string str_title = ((String*)dictionary->objectForKey("GAME TUTORIAL"))->getCString(); 
-	auto label = LabelBMFont::create(str_title.c_str(), filename.c_str());
+	auto label = LabelTTF::create(str_title.c_str(), "Arial" , 50);
 
 	// position the label on the center of the screen
 	label->setPosition(Vec2(origin.x + visibleSize.width/2,
@@ -44,7 +44,7 @@ bool GameTutorialLayer::init()
 
 	//跳过教程的按钮
 	std::string str_end = ((String*)dictionary->objectForKey("END TUTORIAL"))->getCString(); 
-	auto skipItem = MenuItemLabel::create(LabelBMFont::create(str_end.c_str(), filename.c_str()),CC_CALLBACK_1(GameTutorialLayer::skipTutorial, this));
+	auto skipItem = MenuItemLabel::create(LabelTTF::create(str_end.c_str(), "Arial" , 50),CC_CALLBACK_1(GameTutorialLayer::skipTutorial, this));
 	auto menu = Menu::create(skipItem,NULL);
 	menu->setPosition(Vec2(origin.x + visibleSize.width/2, origin.y + label->getContentSize().height));
 	this->addChild(menu,1000);

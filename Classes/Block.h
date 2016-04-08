@@ -45,6 +45,8 @@ public:
 	//使用reduce时
 	void onReduce();
 
+	//初始化位置
+	void initPosition(cocos2d::Point p );
 
 private:
 
@@ -64,5 +66,8 @@ private:
 
 	//设置格子的颜色
 	void setBlockColor(unsigned blockValue);
+
+	//位置坐标
+	cocos2d::Point _initPos;
 };
 

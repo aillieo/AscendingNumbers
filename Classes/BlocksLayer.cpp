@@ -26,8 +26,8 @@ bool BlocksLayer::init()
 	isSoundEnabled = UserDefault::getInstance()->getBoolForKey("Sound",true);
 
 
-	playSound("NewGame.wav");
-	//CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("NewGame.wav",false);
+	playSound("NewGame.mp3");
+
 
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
@@ -66,6 +66,9 @@ bool BlocksLayer::init()
 	auto listenerSS = EventListenerCustom ::create("SET_SOUND",CC_CALLBACK_1(BlocksLayer::setSound, this));
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listenerSS,this);
 
+	//恢复游戏时放音效
+	auto listenerSR = EventListenerCustom ::create("RESUME_GAME",[&](EventCustom* event){playSound("Menu_hide.mp3");});
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(listenerSR,this);
 
 	playBackgroundMusic();
 
@@ -90,7 +93,7 @@ bool BlocksLayer::init()
 void BlocksLayer::createBlock(int row, int col, unsigned blockValue)
 {
 	auto tmpBlock = Block::create();
-	tmpBlock->setPosition(getCenterPoint(row,col));
+	tmpBlock->initPosition(getCenterPoint(row,col));
 	tmpBlock->setBlockValue(blockValue);
 	this->addChild(tmpBlock,3);
 
@@ -280,13 +283,13 @@ void BlocksLayer::superReduce()
 
 	if (!hasGameBegan)
 	{
-		playSound("Invalid.wav");
+		playSound("Invalid.mp3");
 		return;
 	}
 
 	if (_reduceChancesLeft == 0 )
 	{
-		playSound("Invalid.wav");
+		playSound("Invalid.mp3");
 		return;
 	}
 
@@ -310,7 +313,7 @@ void BlocksLayer::superReduce()
 	if (ct == 0)
 	{
 		//CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Invalid.wav",false);
-		playSound("Invalid.wav");
+		playSound("Invalid.mp3");
 	}
 	else
 	{
@@ -333,7 +336,7 @@ void BlocksLayer::finishSelection()
 	{
 
 		//CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Invalid.wav",false);
-		playSound("Invalid.wav");
+		playSound("Invalid.mp3");
 		return;
 	}
 
@@ -346,7 +349,7 @@ void BlocksLayer::finishSelection()
 			blk->onSelectionFinished(false);
 		}
 		//CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("AllOneFinish.wav",false);
-		playSound("AllOneFinish.wav");
+		playSound("AllOneFinish.mp3");
 
 	}
 
@@ -450,6 +453,9 @@ void BlocksLayer::checkSwipeAction( cocos2d::Point point )
 			//this->setTouchEnabled(false);
 			EventCustom event = EventCustom("SHOW_SETTING");
 			_eventDispatcher->dispatchEvent(&event);
+
+			playSound("Menu_show.mp3");
+
 		}
 		else
 		{
@@ -480,10 +486,11 @@ void BlocksLayer::firstStep()
 	std::string str_max = ((String*)dictionary->objectForKey("MAX SUM EVER"))->getCString(); 
 	std::string str_reduce = ((String*)dictionary->objectForKey("REDUCE CHANCES"))->getCString(); 
 
-	filename = MultiLanguagePathGetter::getPath() + "/font.fnt";
+	//filename = MultiLanguagePathGetter::getPath() + "/font.fnt";
 
 	//创建MaxEver
-	auto label = LabelBMFont::create(str_max.c_str(), filename.c_str());
+	//auto label = LabelBMFont::create(str_max.c_str(), filename.c_str());
+	auto label = LabelTTF::create(str_max.c_str(),"Arial",50);
 	label->setScale(5.0f/6.0f);
 	label->setPosition(Vec2(origin.x + visibleSize.width *0.38 ,
 						origin.y + visibleSize.height * 0.75));
@@ -496,7 +503,8 @@ void BlocksLayer::firstStep()
 
 
 
-	auto label2 = LabelBMFont::create(str_reduce.c_str(), filename.c_str());
+	auto label2 = LabelTTF::create(str_reduce.c_str(), "Arial",50);
+	//auto label2 = LabelBMFont::create(str_reduce.c_str(), filename.c_str());
 	label2->setScale(5.0f/6.0f);
 	label2->setPosition(Vec2(origin.x + visibleSize.width *0.38 ,
 		origin.y + visibleSize.height * 0.85));
@@ -532,6 +540,7 @@ void BlocksLayer::updateSum(int newSum)
 			addChild(ps,10);
 			ps->setPosition(_labelMaxNumberEver->getPosition());
 			ps->setAutoRemoveOnFinish(true);
+			playSound("New_max.mp3");
 		}
 
 	}
@@ -575,9 +584,12 @@ void BlocksLayer::setSound(EventCustom* event)
 
 void BlocksLayer::playSound(const std::string filename)
 {
+
 	if (isSoundEnabled)
 	{
+
 		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(filename.c_str(),false);
+
 	}
 
 }
@@ -754,8 +766,13 @@ void BlocksLayer::playBackgroundMusic()
 {
 	if (isSoundEnabled)
 	{
-		CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("bg_music.mp3",true);
+		if (!CocosDenshion::SimpleAudioEngine::getInstance()->isBackgroundMusicPlaying())
+		{
+			CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("bg_music.mp3",true);
+		}
+		
 	}
+
 }
 
 

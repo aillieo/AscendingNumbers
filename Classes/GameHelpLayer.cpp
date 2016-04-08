@@ -41,15 +41,15 @@ bool GameHelpLayer::init()
 	std::string str_6 = ((String*)dictionary->objectForKey("6"))->getCString(); 
 
 
-	filename = MultiLanguagePathGetter::getPath() + "/font.fnt";
+	//filename = MultiLanguagePathGetter::getPath() + "/font.fnt";
 
-	auto helpInfo = LabelBMFont::create((str_1 + "\n\n"+ str_2 + "\n"+str_3 + "\n"+str_4 + "\n"+str_5 + "\n\n"+str_6).c_str() , filename.c_str());
-	helpInfo->setScale(42.0f/60.0f);
+	auto helpInfo = LabelTTF::create((str_1 + "\n\n"+ str_2 + "\n"+str_3 + "\n"+str_4 + "\n"+str_5 + "\n\n"+str_6).c_str() ,  "Arial" , 42);
+
 	
-	helpInfo->setLineBreakWithoutSpace(false);
+	//helpInfo->B
 
-	helpInfo->setWidth(visibleSize.width * 60.0f / 42.0f);
-	helpInfo->setAlignment(TextHAlignment::CENTER);
+	helpInfo->setDimensions(Size(visibleSize.width * 0.8,0));
+	helpInfo->setHorizontalAlignment(TextHAlignment::CENTER);
 
 	helpInfo->setPosition(Vec2(origin.x + visibleSize.width * 0.5 + (0*visibleSize.width*18.0f/84.0f),
 		origin.y + visibleSize.height/2 + visibleSize.height*0.05));
@@ -58,7 +58,7 @@ bool GameHelpLayer::init()
 	
 	std::string str_back = ((String*)dictionary->objectForKey("BACK"))->getCString(); 
 
-	auto skipItem = MenuItemLabel::create(LabelBMFont::create(str_back.c_str(), filename.c_str()),CC_CALLBACK_1(GameHelpLayer::closeHelp, this));
+	auto skipItem = MenuItemLabel::create(LabelTTF::create(str_back.c_str(),  "Arial" , 60),CC_CALLBACK_1(GameHelpLayer::closeHelp, this));
 	auto menu = Menu::create(skipItem,NULL);
 	menu->setPosition(Vec2(origin.x + visibleSize.width/2, origin.y + visibleSize.height*0.05));
 	this->addChild(menu,1000);
