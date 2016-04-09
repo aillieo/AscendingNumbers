@@ -43,7 +43,7 @@ bool GameHelpLayer::init()
 
 	//filename = MultiLanguagePathGetter::getPath() + "/font.fnt";
 
-	auto helpInfo = LabelTTF::create((str_1 + "\n\n"+ str_2 + "\n"+str_3 + "\n"+str_4 + "\n"+str_5 + "\n\n"+str_6).c_str() ,  "Arial" , 42);
+	auto helpInfo = LabelTTF::create((str_1 + "\n\n"+ str_2 + "\n"+str_3 + "\n"+str_4 + "\n"+str_5 + "\n\n"+str_6).c_str() ,  "Arial" , 36);
 
 	
 	//helpInfo->B
