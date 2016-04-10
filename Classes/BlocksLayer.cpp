@@ -92,7 +92,7 @@ bool BlocksLayer::init()
 
 void BlocksLayer::createBlock(int row, int col, unsigned blockValue)
 {
-	auto tmpBlock = Block::create();
+	auto tmpBlock = FigureBlock::create();
 	tmpBlock->initPosition(getCenterPoint(row,col));
 	tmpBlock->setBlockValue(blockValue);
 	this->addChild(tmpBlock,3);
@@ -110,17 +110,17 @@ void BlocksLayer::createBlock(int row, int col, unsigned blockValue)
 
 cocos2d::Point BlocksLayer::getCenterPoint( int row, int col )
 {
-	float x = basePoint.x + ( Block::getContentWidth() + gapSize )*(row + 1) - Block::getContentWidth()/2;
-	float y = basePoint.y + ( Block::getContentWidth() + gapSize )*(col + 1) - Block::getContentWidth()/2;
+	float x = basePoint.x + ( FigureBlock::getContentWidth() + gapSize )*(row + 1) - FigureBlock::getContentWidth()/2;
+	float y = basePoint.y + ( FigureBlock::getContentWidth() + gapSize )*(col + 1) - FigureBlock::getContentWidth()/2;
 	return Point(x,y);
 }
 
-Block* BlocksLayer::getBlockContainingPoint( cocos2d::Point point )
+FigureBlock* BlocksLayer::getBlockContainingPoint( cocos2d::Point point )
 {
 
     Rect rect = Rect(0, 0, 0, 0);    
 
-    for (Block* blk : blocks)
+    for (FigureBlock* blk : blocks)
 	{
 		rect.origin.x = blk->getPositionX() - (blk->getContentSize().width / 2);
 		rect.origin.y = blk->getPositionY() - (blk->getContentSize().height / 2);
@@ -143,7 +143,7 @@ bool BlocksLayer::onTouchBegan( Touch *touch, Event *unused )
 	}
 
 	touchBeganPoint = touch->getLocation();
-	Block* tmp = getBlockContainingPoint(touchBeganPoint);
+	FigureBlock* tmp = getBlockContainingPoint(touchBeganPoint);
 	if (nullptr == tmp)
 	{
 		touchBeganBlock = nullptr;
@@ -173,7 +173,7 @@ void BlocksLayer::onTouchEnded( Touch *touch, Event *unused )
 
 	//如果没有按在格子上
 	auto point = touch->getLocation();
-	Block* tmp = getBlockContainingPoint(point);
+	FigureBlock* tmp = getBlockContainingPoint(point);
 	if (nullptr == tmp)
 	{
 		checkSwipeAction(point);
@@ -297,7 +297,7 @@ void BlocksLayer::superReduce()
 	int ct = 0;
 	clearSelection();
 
-	for (Block* blk : blocks)
+	for (FigureBlock* blk : blocks)
 	{
 		if (blk->getBlockValue() != 1)
 		{
@@ -343,7 +343,7 @@ void BlocksLayer::finishSelection()
 	//全选1时
 	if ((blocksPressed.size()==1)||(!selectingAscending))
 	{
-		for (Block* blk : blocksPressed)
+		for (FigureBlock* blk : blocksPressed)
 		{
 			blk->setBlockValue(2);
 			blk->onSelectionFinished(false);
@@ -359,7 +359,7 @@ void BlocksLayer::finishSelection()
 	{
 
 		currentSum = 0;
-		for (Block* blk : blocksPressed)
+		for (FigureBlock* blk : blocksPressed)
 		{
 			currentSum += blk->getBlockValue();
 		}
@@ -406,7 +406,7 @@ void BlocksLayer::finishSelection()
 void BlocksLayer::clearSelection()
 {
 
-	for (Block* blk: blocksPressed)
+	for (FigureBlock* blk: blocksPressed)
 	{
 		blk->onPressCancelled();
 
@@ -604,7 +604,7 @@ bool BlocksLayer::checkEnding()
 
 	std::set<unsigned> all;
 
-	for (Block* b : blocks)
+	for (FigureBlock* b : blocks)
 	{
 		all.insert(b->getBlockValue());
 	}
@@ -635,7 +635,7 @@ void BlocksLayer::onGameOver()
 	isGameOver = true;
 
 	//按照从小到大的顺序 重新排列blocks索引
-	std::sort(blocks.begin(),blocks.end(),[](Block* b1, Block* b2){return b1->getBlockValue()<b2->getBlockValue();});
+	std::sort(blocks.begin(),blocks.end(),[](FigureBlock* b1, FigureBlock* b2){return b1->getBlockValue()<b2->getBlockValue();});
 
 	//动画
 	ParticleSystem* ps = ParticleSystemQuad::create("particle.plist");
@@ -701,7 +701,7 @@ void BlocksLayer::initBlocks()
 	int rest3 = (matrix_height*matrix_width)/4;
 
 	//初始化方阵 
-	blocks = Vector<Block*>(matrix_height * matrix_width); 
+	blocks = Vector<FigureBlock*>(matrix_height * matrix_width); 
 	for (int row = 0; row < matrix_height; row++) 
 	{
 		for (int col = 0; col < matrix_width; col++) 

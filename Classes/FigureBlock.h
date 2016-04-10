@@ -2,7 +2,7 @@
 
 #include "cocos2d.h"
 
-class Block : public cocos2d::Sprite
+class FigureBlock : public cocos2d::Sprite
 {
 public:
 
@@ -10,7 +10,7 @@ public:
     virtual bool init();  
     
 	//create函数
-	CREATE_FUNC(Block);
+	CREATE_FUNC(FigureBlock);
 
 	//获取图片宽度 高度和宽度相等
 	static float getContentWidth();

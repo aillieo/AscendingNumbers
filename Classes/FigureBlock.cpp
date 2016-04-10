@@ -1,10 +1,10 @@
-﻿#include "Block.h"
+﻿#include "FigureBlock.h"
 
 USING_NS_CC;
 const float blockWidth = 128.0f;
 
 // on "init" you need to initialize your instance
-bool Block::init()
+bool FigureBlock::init()
 {
     //////////////////////////////
     // 1. super init first
@@ -34,33 +34,33 @@ bool Block::init()
     return true;
 }
 
-float Block::getContentWidth()
+float FigureBlock::getContentWidth()
 {
 	return blockWidth;
 }
 
-void Block::setRow( int row )
+void FigureBlock::setRow( int row )
 {
 	_row = row;
 }
 
-void Block::setCol( int col )
+void FigureBlock::setCol( int col )
 {
 	_col = col;
 }
 
-int Block::getRow()
+int FigureBlock::getRow()
 {
 	return _row;
 }
 
-int Block::getCol()
+int FigureBlock::getCol()
 {
 	return _col;
 }
 
 
-void Block::setBlockValue(unsigned blockValue)
+void FigureBlock::setBlockValue(unsigned blockValue)
 {
 
 	_blockValue = blockValue;
@@ -72,22 +72,22 @@ void Block::setBlockValue(unsigned blockValue)
 
 }
 
-unsigned Block::getBlockValue()
+unsigned FigureBlock::getBlockValue()
 {
 	return _blockValue;
 }
 
-bool Block::isPressable()
+bool FigureBlock::isPressable()
 {
 	return _pressable;
 }
 
-void Block::setPressability( bool bIsPressable )
+void FigureBlock::setPressability( bool bIsPressable )
 {
 	_pressable = bIsPressable;
 }
 
-void Block::setBlockColor( unsigned blockValue )
+void FigureBlock::setBlockColor( unsigned blockValue )
 {
 	if (blockValue>25)
 	{
@@ -110,7 +110,7 @@ void Block::setBlockColor( unsigned blockValue )
 
 }
 
-void Block::onPressed()
+void FigureBlock::onPressed()
 {
 	isPressed = true;
 	auto action = ScaleTo::create(0.2f,0.8);
@@ -118,7 +118,7 @@ void Block::onPressed()
 	this->runAction(action);
 }
 
-void Block::onPressCancelled()
+void FigureBlock::onPressCancelled()
 {
 	isPressed = false;
 	auto action = ScaleTo::create(0.2f,1.0);
@@ -126,7 +126,7 @@ void Block::onPressCancelled()
 	this->runAction(action);
 }
 
-void Block::onSelectionFinished( bool isLargestNumber )
+void FigureBlock::onSelectionFinished( bool isLargestNumber )
 {
 	if (isLargestNumber)
 	{
@@ -147,7 +147,7 @@ void Block::onSelectionFinished( bool isLargestNumber )
 	}
 }
 
-void Block::onReduce()
+void FigureBlock::onReduce()
 {
 	//auto action1 = FadeOut::create(0.1f);
 	//auto action2 = FadeIn::create(0.1f);
@@ -171,7 +171,7 @@ void Block::onReduce()
 	this->runAction(Sequence::create(action6,action3,action7,NULL));
 }
 
-void Block::initPosition( cocos2d::Point p )
+void FigureBlock::initPosition( cocos2d::Point p )
 {
 	_initPos = p;
 	setPosition(p);

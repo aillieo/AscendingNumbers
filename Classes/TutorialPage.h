@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "cocos2d.h"
-#include "Block.h"
+#include "FigureBlock.h"
 
 class TutorialPage : public cocos2d::Sprite
 {
@@ -23,7 +23,7 @@ private:
 
 	cocos2d::Point getCenterPoint( int row, int col );
 	cocos2d::Point basePoint;
-	cocos2d::Vector<Block*> blocks;
+	cocos2d::Vector<FigureBlock*> blocks;
 
 	cocos2d::Sprite* finger;
 };

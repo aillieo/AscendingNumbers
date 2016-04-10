@@ -58,14 +58,14 @@ bool TutorialPage::init( unsigned index )
 	int blockValues[] = {1,1,3,2,3,1,1,2,2};
 	//int blockValues[] = {1,4,7,2,5,8,3,6,9};
 
-	blocks = Vector<Block*>(3*3); 
+	blocks = Vector<FigureBlock*>(3*3); 
 	for (int row = 0; row < 3; row++) 
 	{
 		for (int col = 0; col < 3; col++) 
 		{
 			unsigned blockValue = blockValues[row * 3 + col];
 
-			auto tmpBlock = Block::create();
+			auto tmpBlock = FigureBlock::create();
 			tmpBlock->setPosition(getCenterPoint(row,col));
 			tmpBlock->setBlockValue(blockValue);
 			this->addChild(tmpBlock,3);
@@ -177,7 +177,7 @@ bool TutorialPage::init( unsigned index )
 	auto p3_action3 = MoveBy::create(0.6,Vec2(0.0f ,-1 * visibleSize.height * 0.3 ));
 	auto p3_action4 = CallFunc::create([&](){
 
-		for (Block* blk : blocks )
+		for (FigureBlock* blk : blocks )
 		{
 			int blockValues[] = {1,1,3,2,3,1,1,2,2};
 			if (blk->getBlockValue()!=1)
@@ -188,7 +188,7 @@ bool TutorialPage::init( unsigned index )
 	});
 	auto p3_action5 = MoveBy::create(1.0,Vec2(0,0));
 	auto p3_action6 = CallFunc::create([&](){
-		for (Block* blk : blocks )
+		for (FigureBlock* blk : blocks )
 		{
 			int blockValues[] = {1,1,3,2,3,1,1,2,2};
 			blk->setBlockValue(blockValues[blocks.getIndex(blk)]);
@@ -281,8 +281,8 @@ bool TutorialPage::init( unsigned index )
 
 Point TutorialPage::getCenterPoint( int row, int col )
 {
-	float x = basePoint.x + ( Block::getContentWidth())*(row + 1) - Block::getContentWidth()/2;
-	float y = basePoint.y + ( Block::getContentWidth())*(col + 1) - Block::getContentWidth()/2;
+	float x = basePoint.x + ( FigureBlock::getContentWidth())*(row + 1) - FigureBlock::getContentWidth()/2;
+	float y = basePoint.y + ( FigureBlock::getContentWidth())*(col + 1) - FigureBlock::getContentWidth()/2;
 	return Point(x,y);
 }
 

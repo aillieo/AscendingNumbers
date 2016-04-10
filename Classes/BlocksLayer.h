@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "cocos2d.h"
-#include "Block.h"
+#include "FigureBlock.h"
 
 class BlocksLayer : public cocos2d::Layer
 {
@@ -54,7 +54,7 @@ private:
 	bool isSoundEnabled;
 
 	//开始按下时选择的block 只有当按下和松开的block相同时 才会对block进行操作
-	Block* touchBeganBlock;
+	FigureBlock* touchBeganBlock;
 
 	//开始按下时的点 用来判断滑动方向
 	cocos2d::Point touchBeganPoint; 
@@ -75,7 +75,7 @@ private:
 	cocos2d::Point getCenterPoint(int row, int col);
 
 	//包含该点的block对象
-	Block* getBlockContainingPoint(cocos2d::Point point);
+	FigureBlock* getBlockContainingPoint(cocos2d::Point point);
 
 
 	//播放音效
@@ -89,10 +89,10 @@ private:
 	cocos2d::Point basePoint;
 
 	//存储格子阵中所有的blocks
-	cocos2d::Vector<Block*> blocks; 
+	cocos2d::Vector<FigureBlock*> blocks; 
 
 	//存储选中的blocks
-	cocos2d::Vector<Block*> blocksPressed; 
+	cocos2d::Vector<FigureBlock*> blocksPressed; 
 
 
 	void checkSwipeAction(cocos2d::Point point);
