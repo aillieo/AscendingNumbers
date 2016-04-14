@@ -375,7 +375,15 @@ void BlocksLayer::finishSelection()
 
 		}
 		//CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("AscendingFinish.wav",false);
-		playSound("AscendingFinish.mp3");
+		if (currentSum != 3)
+		{
+			playSound("AscendingFinish.mp3");
+		}
+		else
+		{
+			playSound("AscendingFinish_3.mp3");
+		}
+		
 
 		
 		//触发FIRST_STEP 将按钮和分数显示出来

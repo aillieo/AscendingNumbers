@@ -182,7 +182,8 @@ bool TutorialPage::init( unsigned index )
 			int blockValues[] = {1,1,3,2,3,1,1,2,2};
 			if (blk->getBlockValue()!=1)
 			{
-				blk->setBlockValue(blockValues[blocks.getIndex(blk)]-1);
+				blk->initPosition(blk->getPosition());
+				blk->onReduce();
 			}
 		}
 	});
